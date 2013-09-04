@@ -20,70 +20,54 @@ grunt.loadNpmTasks('grunt-pemcrypt');
 ## The "pemcrypt" task
 
 ### Overview
-In your project's Gruntfile, add a section named `pemcrypt` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add the task you want to automate to the data object passed into `grunt.initConfig()`.
 
 ```js
+var path = require('path');
+var cwd = process.cwd();
+var pemkey = path.join(cwd, '.private.pem');
+
 grunt.initConfig({
-  pemcrypt: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
+  pemcrypt_gen: {
+    key: { pem: pemkey }
   },
+  pemcrypt_encrypt: {
+    foo: { pem: pemkey, store: 'foo' }
+  },
+  pemcrypt_decrypt: {
+    foo: { pem: pemkey, store: 'foo' }
+  }
 })
 ```
 
-### Options
+#### Task `pemcrypt_gen`
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+Generates a private `.pem` key at the provided absolute file path. In the example I picked a file path in the project root, but you might want to keep your `.pem`s outside the working directory for your repository altogether. You can optionally pass in a `size` value to determine the strength of the private key generated.
 
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
-
-### Usage Examples
-
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-  pemcrypt: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
+```shell
+grunt pemcrypt_gen:key
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+#### Task `pemcrypt_encrypt`
 
-```js
-grunt.initConfig({
-  pemcrypt: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
+Encrypts the `store` file sitting on our `cwd`, we can override `cwd` by passing it as an option. For example:
+
+```json
+{
+  "pemcrypt_encrypt": {
+    "foo": {
+      "pem": pemkey,
+      "store": "foo",
+      "cwd": __dirname + '/bar'
+    }
+  }
+}
 ```
 
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+#### Task `pemcrypt_decrypt`
 
-## Release History
-_(Nothing yet)_
+Decrypts the `store` file, using the same pem that encrypted it.
+
+#### Troubleshooting
+
+Generate the private key only once, then encrypt and decrypt all you like using that one key.
