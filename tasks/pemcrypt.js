@@ -36,7 +36,7 @@ module.exports = function(grunt) {
         var raw = data.rawstore || data.store;
 
         grunt.log.writeln('Decrypting ' + pemjson + ' file...');
-    
+
         // write to disk as .json
         store.decrypt(pem, raw);
 
