@@ -41,6 +41,7 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "pemcrypt": "0.0.1"
+    "pemcrypt": "0.0.1",
+    "chalk": "~0.2.1"
   }
 }

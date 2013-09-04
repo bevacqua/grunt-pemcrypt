@@ -1,14 +1,15 @@
 'use strict';
 
 module.exports = function(grunt) {
+    var chalk = require('chalk');
     var pemcrypt = require('pemcrypt');
-    var pemjson = '.pemjson'.yellow();
-    var pemkey = '.pem'.cyan();
-    var rawjson = '.json'.cyan();
+    var pemjson = chalk.yellow('.pemjson');
+    var pemkey = chalk.cyan('.pem');
+    var rawjson = chalk.cyan('.json');
 
     grunt.registerMultiTask('pemcrypt_gen', 'Generate a .pem key', function() {
-        grunt.log.write('Generating ' + pemkey + ' key...');
-        
+        grunt.log.writeln('Generating ' + pemkey + ' key...');
+
         pemcrypt.generateKey(this.data.pem, this.data.size);
 
         grunt.log.ok(pemkey + ' key generated.', this.data.pem);
@@ -20,7 +21,7 @@ module.exports = function(grunt) {
             cwd: this.data.cwd
         });
 
-        grunt.log.write('Encrypting ' + rawjson);
+        grunt.log.writeln('Encrypting ' + rawjson + ' file...');
 
         // write to disk as .pemjson
         store.encrypt(this.data.store, true);
@@ -34,8 +35,8 @@ module.exports = function(grunt) {
             cwd: this.data.cwd
         });
 
-        grunt.log.write('Decrypting ' + pemjson);
-        
+        grunt.log.writeln('Decrypting ' + pemjson + ' file...');
+    
         // write to disk as .json
         store.decrypt(this.data.store, true);
 
@@ -43,6 +44,6 @@ module.exports = function(grunt) {
     });
 
     function ok(src, dest, action, store){
-        grunt.log.ok(src + ' file ' + action + ', ' + dest + ' file generated.', store);
+        grunt.log.ok(src + ' file ' + action + ', ' + dest + ' file generated at', store + dest);
     }
 };
