@@ -16,31 +16,31 @@ module.exports = function(grunt) {
     });
 
     grunt.registerMultiTask('pem_encrypt', 'Encrypt a .json file', function() {
-        var store = pemcrypt({
-            pem: this.data.pem,
-            cwd: this.data.cwd
-        });
+        var data = this.data;
+        var store = pemcrypt(data);
+        var pem = data.pemstore || data.store;
+        var raw = data.rawstore || data.store;
 
         grunt.log.writeln('Encrypting ' + rawjson + ' file...');
 
         // write to disk as .pemjson
-        store.encrypt(this.data.store, true);
+        store.encrypt(pem, raw, true);
 
-        ok(rawjson, pemjson, 'encrypted', this.data.store);
+        ok(rawjson, pemjson, 'encrypted', pem);
     });
 
     grunt.registerMultiTask('pem_decrypt', 'Decrypt a .pemjson file', function() {
-        var store = pemcrypt({
-            pem: this.data.pem,
-            cwd: this.data.cwd
-        });
+        var data = this.data;
+        var store = pemcrypt(data);
+        var pem = data.pemstore || data.store;
+        var raw = data.rawstore || data.store;
 
         grunt.log.writeln('Decrypting ' + pemjson + ' file...');
     
         // write to disk as .json
-        store.decrypt(this.data.store, true);
+        store.decrypt(pem, raw, true);
 
-        ok(pemjson, rawjson, 'decrypted', this.data.store);
+        ok(pemjson, rawjson, 'decrypted', raw);
     });
 
     function ok(src, dest, action, store){

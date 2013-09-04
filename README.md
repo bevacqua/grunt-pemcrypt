@@ -52,7 +52,7 @@ grunt pem_gen:key
 
 Encrypts the `store` file sitting on our `cwd`, we can override `cwd` by passing it as an option. For example:
 
-```json
+```js
 {
   "pem_encrypt": {
     "foo": {
@@ -64,9 +64,23 @@ Encrypts the `store` file sitting on our `cwd`, we can override `cwd` by passing
 }
 ```
 
+Alternatively to providing a `store`, you can provide different locations for each of your versions, for example:
+
+```js
+{
+  "pem_encrypt": {
+    "foo": {
+      "pem": pemkey,
+      "pemstore": "secure/foo",
+      "rawstore": "private/foo"
+    }
+  }
+}
+```
+
 #### Task `pem_decrypt`
 
-Decrypts the `store` file, using the same pem that encrypted it.
+Decrypts the `store` file, using the same pem that encrypted it. This task carries the same configuration options found in the `pem_encrypt` task.
 
 #### Troubleshooting
 
