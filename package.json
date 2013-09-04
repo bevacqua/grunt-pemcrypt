@@ -1,7 +1,7 @@
 {
   "name": "grunt-pemcrypt",
   "description": "Use pemcrypt to automatically encrypt and decrypt JSON configuration files",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/bevacqua/grunt-pemcrypt",
   "author": {
     "name": "Nicolas Bevacqua",

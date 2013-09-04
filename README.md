@@ -28,33 +28,33 @@ var cwd = process.cwd();
 var pemkey = path.join(cwd, '.private.pem');
 
 grunt.initConfig({
-  pemcrypt_gen: {
+  pem_gen: {
     key: { pem: pemkey }
   },
-  pemcrypt_encrypt: {
+  pem_encrypt: {
     foo: { pem: pemkey, store: 'foo' }
   },
-  pemcrypt_decrypt: {
+  pem_decrypt: {
     foo: { pem: pemkey, store: 'foo' }
   }
 })
 ```
 
-#### Task `pemcrypt_gen`
+#### Task `pem_gen`
 
 Generates a private `.pem` key at the provided absolute file path. In the example I picked a file path in the project root, but you might want to keep your `.pem`s outside the working directory for your repository altogether. You can optionally pass in a `size` value to determine the strength of the private key generated.
 
 ```shell
-grunt pemcrypt_gen:key
+grunt pem_gen:key
 ```
 
-#### Task `pemcrypt_encrypt`
+#### Task `pem_encrypt`
 
 Encrypts the `store` file sitting on our `cwd`, we can override `cwd` by passing it as an option. For example:
 
 ```json
 {
-  "pemcrypt_encrypt": {
+  "pem_encrypt": {
     "foo": {
       "pem": pemkey,
       "store": "foo",
@@ -64,7 +64,7 @@ Encrypts the `store` file sitting on our `cwd`, we can override `cwd` by passing
 }
 ```
 
-#### Task `pemcrypt_decrypt`
+#### Task `pem_decrypt`
 
 Decrypts the `store` file, using the same pem that encrypted it.
 
