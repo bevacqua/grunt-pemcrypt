@@ -3,9 +3,9 @@
 module.exports = function(grunt) {
     var chalk = require('chalk');
     var pemcrypt = require('pemcrypt');
-    var pemjson = chalk.yellow('.pemjson');
-    var pemkey = chalk.cyan('.pem');
-    var rawjson = chalk.cyan('.json');
+    var pemjson = chalk.white('.pemjson');
+    var pemkey = chalk.blue('.pem');
+    var rawjson = chalk.magenta('.json');
 
     grunt.registerMultiTask('pem_gen', 'Generate a .pem key', function() {
         grunt.log.writeln('Generating ' + pemkey + ' key...');
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
         grunt.log.writeln('Encrypting ' + rawjson + ' file...');
 
         // write to disk as .pemjson
-        store.encrypt(pem, raw);
+        store.encrypt(raw, pem);
 
         ok(rawjson, pemjson, 'encrypted', pem);
     });
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
         grunt.log.writeln('Decrypting ' + pemjson + ' file...');
     
         // write to disk as .json
-        store.decrypt(raw, pem);
+        store.decrypt(pem, raw);
 
         ok(pemjson, rawjson, 'decrypted', raw);
     });
