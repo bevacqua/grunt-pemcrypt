@@ -1,6 +1,6 @@
 # grunt-pemcrypt
 
-> Use pemcrypt to automatically encrypt and decrypt JSON configuration files
+> Use pemcrypt to automatically encrypt and decrypt any file
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
