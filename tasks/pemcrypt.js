@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     var pemcrypt = require('pemcrypt');
     var pemkey = chalk.blue('.pem');
 
-    function raw (data) {
+    function rawfile (data) {
         return chalk.magenta(data.raw || '.json');
     }
 
