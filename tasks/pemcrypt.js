@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 
         grunt.log.writeln('Encrypting ' + rawfile(data) + ' file...');
 
-        // write to disk as .pemjson
+        // encrypt to disk
         store.encrypt(raw, pem, {});
 
         ok(rawfile(data), secure(data), 'encrypted', pem);
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 
         grunt.log.writeln('Decrypting ' + secure(data) + ' file...');
 
-        // write to disk as .json
+        // decrypt to disk
         store.decrypt(pem, raw, {});
 
         ok(secure(data), rawfile(data), 'decrypted', raw);
